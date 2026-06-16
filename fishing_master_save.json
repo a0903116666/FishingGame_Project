@@ -1,0 +1,404 @@
+{
+    "player_id": "single_player_001",
+    "records": [
+        {
+            "id": 1,
+            "name": "塑膠袋",
+            "is_unlocked": true,
+            "max_weight": 0.0,
+            "catch_count": 1
+        },
+        {
+            "id": 2,
+            "name": "可樂罐",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 3,
+            "name": "鞋子",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 4,
+            "name": "指南針",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 5,
+            "name": "生鏽鐵管",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 6,
+            "name": "零食包裝袋",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 7,
+            "name": "輪胎",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 101,
+            "name": "火之吻",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 102,
+            "name": "翡翠條紋雕",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 103,
+            "name": "河豚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 104,
+            "name": "海馬",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 105,
+            "name": "泡泡大師",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 106,
+            "name": "泡泡眼",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 107,
+            "name": "星雲漫步者",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 108,
+            "name": "招潮蟹",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 109,
+            "name": "紫色條紋魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 110,
+            "name": "神仙魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 111,
+            "name": "紫電突擊兵",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 112,
+            "name": "聖光水母",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 113,
+            "name": "小藍綠寶石",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 114,
+            "name": "小丑魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 115,
+            "name": "琥珀守護者",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 201,
+            "name": "天才機械魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 202,
+            "name": "深海探險家",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 203,
+            "name": "冰晶魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 204,
+            "name": "祈願小金",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 205,
+            "name": "憂鬱小藍",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 206,
+            "name": "虛空漫遊者",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 207,
+            "name": "晶藍棘刺魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 208,
+            "name": "新手小鰷魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 209,
+            "name": "旗魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 210,
+            "name": "粉紅銀河夢",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 211,
+            "name": "深海突襲者",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 212,
+            "name": "章魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 213,
+            "name": "烏賊",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 214,
+            "name": "軟軟沙灘魟",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 215,
+            "name": "熔岩巨鯊",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 301,
+            "name": "數碼螢光雕",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 302,
+            "name": "秘寶紫鱗",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 303,
+            "name": "寶箱守護者",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 304,
+            "name": "幻彩水晶魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 305,
+            "name": "海洋守護者",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 306,
+            "name": "吳郭魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 307,
+            "name": "獅子魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 308,
+            "name": "衝浪飛魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 309,
+            "name": "時光鯨",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 310,
+            "name": "深淵蒼龍",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 311,
+            "name": "巨大水豚魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 312,
+            "name": "時空裂縫鯊",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 313,
+            "name": "櫻花鉤吻鮭",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 314,
+            "name": "盲眼巨蟲",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 315,
+            "name": "封包食人魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 401,
+            "name": "寶石海龜",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 402,
+            "name": "像素海龍王",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 403,
+            "name": "冰晶鯨魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 404,
+            "name": "藍屏死神鯊",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        },
+        {
+            "id": 405,
+            "name": "珍珠奶茶魚",
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
+        }
+    ]
+}
