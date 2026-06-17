@@ -2,8 +2,13 @@ import pygame
 import sys
 import json
 from config import *
+<<<<<<< HEAD
 # from body_control import body_cursor
 from fish_data import get_fish_data
+=======
+from body_control import body_cursor
+from fish_data import get_fish_data, FISH_MASTER_DATA
+>>>>>>> 451fa6dd808a8c61f6388693ab4eceec2c62a4a3
 
 def homepage_menu():
     pygame.display.set_caption("2D 體感釣魚大師 - 首頁")
@@ -126,7 +131,7 @@ def game_menu():
     background_snapshot = SCREEN.copy() 
 
     darken_overlay = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
-    darken_overlay.fill((0, 0, 0, 120)) # 120 是透明度 (0~255)
+    darken_overlay.fill((0, 0, 0, 120)) 
     background_snapshot.blit(darken_overlay, (0, 0))
 
     DWELL_THRESHOLD = 1.0 
@@ -295,7 +300,6 @@ def digital_field_guide():
         row, col = current_index // COLS, current_index % COLS
         fish_pos = (START_X + (col * SPACING_X), START_Y + (row * SPACING_Y))
 
-        # 給每隻魚加上碰撞框
         loaded_fishes[star_level].append({
             "img": img,
             "pos": fish_pos,
@@ -519,9 +523,9 @@ def digital_field_guide():
         
         pygame.display.flip()
 
-def settle_menu(fish_id, weight):
+def settle_menu(fish_id, weight, is_new_record, is_new_species):
     pygame.display.set_caption("2D 體感釣魚大師 - 結算畫面")
-   
+
     settle_image = pygame.image.load("game/assets/settle_column2.png").convert_alpha()
     resized_settle_image = pygame.transform.smoothscale(settle_image, (650, 440))
 
@@ -532,14 +536,45 @@ def settle_menu(fish_id, weight):
     go_to_digital_field_guide_button = pygame.image.load("game/assets/gotoguide_button.png").convert_alpha()
     resized_go_to_digital_field_guide_button = pygame.transform.smoothscale(go_to_digital_field_guide_button, (250, 100))
     triggered_go_to_digital_field_guide_button = pygame.transform.smoothscale(go_to_digital_field_guide_button, (270, 110))
+
+    new_record_image = pygame.image.load("game/assets/new_record.png").convert_alpha()
+    resized_new_record_image = pygame.transform.smoothscale(new_record_image, (300, 150))
+
+    new_species_image = pygame.image.load("game/assets/new_species.png").convert_alpha()
+    resized_new_species_image = pygame.transform.smoothscale(new_species_image, (300, 150))
         
     hand_cursor_image = pygame.image.load("game/assets/HandCursor.png").convert_alpha()
     resized_hand_cursor_image = pygame.transform.smoothscale(hand_cursor_image, (50, 50))
+
+    progress_arc = pygame.image.load("game/assets/progressArc.png").convert_alpha()
+
+    background_snapshot = SCREEN.copy()
+    overlay = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+    overlay.fill((0, 0, 0, 150))
+    background_snapshot.blit(overlay, (0, 0)) 
+
+    title_font = pygame.font.Font("game/assets/pixel_font.ttf", 32)
+    desc_font = pygame.font.Font("game/assets/pixel_font.ttf", 20)
+    title_color = (60, 40, 20) 
+    desc_color = (100, 80, 60) 
+
+    fish = get_fish_data(int(fish_id))
+    if fish:
+        img_path = f"fish_img/fish_{fish['id']}.png"
+        fish_image = pygame.image.load(img_path).convert_alpha()
+        resized_fish_image = pygame.transform.smoothscale(fish_image, (128, 128))
+
+    DWELL_THRESHOLD = 1.0  
+    hovered_button = None
+    hover_start_time = 0.0
+    ratio = 0.0
 
     pygame.display.flip()
     waiting_for_input = True
     
     while waiting_for_input:
+        current_time = pygame.time.get_ticks() / 1000.0
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -547,23 +582,86 @@ def settle_menu(fish_id, weight):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:  
                     waiting_for_input = False
+                    
         cursor_x, cursor_y = body_cursor()
         cursor_pixel_x = max(min((cursor_x + 0.5) * WINDOW_WIDTH, WINDOW_WIDTH - 50), 50)   
         cursor_pixel_y = max(min((cursor_y + 0.5) * WINDOW_HEIGHT, WINDOW_HEIGHT - 50), 50)
-        
-        if ((WINDOW_HEIGHT // 2 + 15) < cursor_pixel_y < (WINDOW_HEIGHT // 2 + 15 + 100)) and ((WINDOW_WIDTH // 2 - 125) < cursor_pixel_x < (WINDOW_WIDTH // 2 + 125)):
-            SCREEN.blit(triggered_continue_button, (WINDOW_WIDTH // 2 - 125, (WINDOW_HEIGHT // 2) + 15))
-            SCREEN.blit(resized_go_to_digital_field_guide_button, (WINDOW_WIDTH // 2 - 200, (WINDOW_HEIGHT // 2) + 15 + 85))
-        elif ((WINDOW_HEIGHT // 2 + 15 + 75) < cursor_pixel_y < (WINDOW_HEIGHT // 2 + 15 + 175)) and ((WINDOW_WIDTH // 2 - 125) < cursor_pixel_x < (WINDOW_WIDTH // 2 + 125)):
-            SCREEN.blit(resized_continue_button, (WINDOW_WIDTH // 2 - 125, (WINDOW_HEIGHT // 2) + 15))
-            SCREEN.blit(triggered_go_to_digital_field_guide_button, (WINDOW_WIDTH // 2 - 200, (WINDOW_HEIGHT // 2) + 15 + 85))
+
+        current_hover = None
+        if ((WINDOW_HEIGHT // 2 + 100) < cursor_pixel_y < (WINDOW_HEIGHT // 2 + 200)) and ((WINDOW_WIDTH // 2 ) < cursor_pixel_x < (WINDOW_WIDTH // 2 + 250)):
+            current_hover = "continue"
+        elif ((WINDOW_HEIGHT // 2 + 100) < cursor_pixel_y < (WINDOW_HEIGHT // 2 + 200)) and ((WINDOW_WIDTH // 2 - 225) < cursor_pixel_x < (WINDOW_WIDTH // 2 + 25)):
+            current_hover = "guide"
+
+        if current_hover != hovered_button:
+            hovered_button = current_hover
+            hover_start_time = current_time
+            ratio = 0.0
         else:
-            SCREEN.blit(resized_continue_button, (WINDOW_WIDTH // 2 - 125, (WINDOW_HEIGHT // 2) + 15))
-            SCREEN.blit(resized_go_to_digital_field_guide_button, (WINDOW_WIDTH // 2 - 200, (WINDOW_HEIGHT // 2) + 15 + 85))
+            if hovered_button is not None:
+                ratio = (current_time - hover_start_time) / DWELL_THRESHOLD
+                if ratio >= 1.0:
+                    if hovered_button == "continue":
+                        print("觸發：繼續遊戲")
+                        #return "continue" 
+                    elif hovered_button == "guide":
+                        print("觸發：前往圖鑑")
+                        #return "guide"
+                    
+        SCREEN.blit(background_snapshot, (0, 0))
         SCREEN.blit(resized_settle_image, (WINDOW_WIDTH // 2 - 325, (WINDOW_HEIGHT // 2) - 220))
+
+        if hovered_button == "continue":
+            SCREEN.blit(triggered_continue_button, (WINDOW_WIDTH // 2 , (WINDOW_HEIGHT // 2) + 95)) # 微調放大後的座標以求置中
+        else:
+            SCREEN.blit(resized_continue_button, (WINDOW_WIDTH // 2 , (WINDOW_HEIGHT // 2) + 100))
+
+        if hovered_button == "guide":
+            SCREEN.blit(triggered_go_to_digital_field_guide_button, (WINDOW_WIDTH // 2 - 235, (WINDOW_HEIGHT // 2) + 95))
+        else:
+            SCREEN.blit(resized_go_to_digital_field_guide_button, (WINDOW_WIDTH // 2 - 225, (WINDOW_HEIGHT // 2) + 100))
+
+        if fish:
+            SCREEN.blit(resized_fish_image, (WINDOW_WIDTH // 2 - 175, (WINDOW_HEIGHT // 2) - 100))
+
+            title_surface = title_font.render("釣魚結算", True, title_color)
+            title_x = WINDOW_WIDTH // 2 - (title_surface.get_width() // 2)
+            title_y = (WINDOW_HEIGHT // 2) - 200 
+            SCREEN.blit(title_surface, (title_x, title_y))
+
+            text_start_x = (WINDOW_WIDTH // 2) + 20
+            base_y = (WINDOW_HEIGHT // 2) - 80
+            line_spacing = 40
+
+            name_surface = desc_font.render(f"魚名：{fish['name']}", True, desc_color)
+            SCREEN.blit(name_surface, (text_start_x, base_y))
+
+            weight_surface = desc_font.render(f"重量：{weight} kg", True, desc_color)
+            SCREEN.blit(weight_surface, (text_start_x, base_y + line_spacing * 1))
+
+            rarity_surface = desc_font.render(f"稀有度：{fish['level']}", True, desc_color)
+            SCREEN.blit(rarity_surface, (text_start_x, base_y + line_spacing * 2))
+
+            if is_new_species:
+                SCREEN.blit(resized_new_species_image, (WINDOW_WIDTH // 2 - 45 , (WINDOW_HEIGHT // 2) - 5))
+            elif is_new_record:
+                SCREEN.blit(resized_new_record_image, (WINDOW_WIDTH // 2 - 45, (WINDOW_HEIGHT // 2) - 5))
+
+        if ratio > 0.0:
+            for i in range(int(ratio * 8 + 0.5)):
+                rotated_arc = pygame.transform.rotate(progress_arc, -45 * i)
+                arc_rect = rotated_arc.get_rect(center=(cursor_pixel_x, cursor_pixel_y))
+                SCREEN.blit(rotated_arc, arc_rect)
+
+        SCREEN.blit(resized_hand_cursor_image, (cursor_pixel_x - 25, cursor_pixel_y - 25))
+
         pygame.display.flip()
 
 digital_field_guide()
 #game_menu()
 #homepage_menu()
+<<<<<<< HEAD
 # settle_menu(fish_id, weight)
+=======
+settle_menu(403, 3.5, False, True)
+>>>>>>> 451fa6dd808a8c61f6388693ab4eceec2c62a4a3
