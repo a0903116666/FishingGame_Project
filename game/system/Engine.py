@@ -28,7 +28,7 @@ def get_image(filename: str):
         img = pygame.image.load(filename).convert_alpha()
         return img
     except FileNotFoundError:
-        print(f"⚠️ 警告：找不到 {filename}，請確認有對應檔案。")        
+        print(f"⚠️ 警告：找不到 {filename}，請確認有對應檔案。")
         img = pygame.Surface((64, 64))
         img.fill((150, 0, 150))
         return img

@@ -50,11 +50,11 @@ def fishing_stage_render():
     global progress, box_y, box_size, progress_corlor, cursor_pixel, resized_background_image, resized_hook_image
     SCREEN.blit(resized_background_image, (0, 0))
     pygame.draw.rect(
-            surface=SCREEN,
-            color=(150, 0, 150),
-            rect=(50, box_y - box_size//2, 30, box_size),
-            width=0
-        )
+        surface=SCREEN,
+        color=(150, 0, 150),
+        rect=(50, box_y - box_size//2, 30, box_size),
+        width=0
+    )
     pygame.draw.rect(
         surface=SCREEN, 
         color=(255, 165, 0), 
@@ -121,49 +121,21 @@ def fishing_stage_update():
         print("釣到魚了！")
         if choice == 1: 
             fish_id = random.randint(1, 7)
-            for fish in FISH_MASTER_DATA["fish_list"]:
-                if fish["id"] == fish_id:
-                    min_weight = fish["min_weight_kg"]
-                    max_weight = fish["max_weight_kg"]
-                    break
-            captured_weight = round(random.uniform(min_weight, max_weight), 2)
-            config.game_save.on_fish_caught(fish_id, captured_weight)
         elif choice == 2: 
             fish_id = random.randint(101, 115)
-            for fish in FISH_MASTER_DATA["fish_list"]:
-                if fish["id"] == fish_id:
-                    min_weight = fish["min_weight_kg"]
-                    max_weight = fish["max_weight_kg"]
-                    break
-            captured_weight = round(random.uniform(min_weight, max_weight), 2)
-            config.game_save.on_fish_caught(fish_id, captured_weight)
         elif choice == 3: 
             fish_id = random.randint(201, 215)
-            for fish in FISH_MASTER_DATA["fish_list"]:
-                if fish["id"] == fish_id:
-                    min_weight = fish["min_weight_kg"]
-                    max_weight = fish["max_weight_kg"]
-                    break
-            captured_weight = round(random.uniform(min_weight, max_weight), 2)
-            config.game_save.on_fish_caught(fish_id, captured_weight)
         elif choice == 4: 
             fish_id = random.randint(301, 315)
-            for fish in FISH_MASTER_DATA["fish_list"]:
-                if fish["id"] == fish_id:
-                    min_weight = fish["min_weight_kg"]
-                    max_weight = fish["max_weight_kg"]
-                    break
-            captured_weight = round(random.uniform(min_weight, max_weight), 2)
-            config.game_save.on_fish_caught(fish_id, captured_weight)
         elif choice == 5: 
             fish_id = random.randint(401, 405)
-            for fish in FISH_MASTER_DATA["fish_list"]:
-                if fish["id"] == fish_id:
-                    min_weight = fish["min_weight_kg"]
-                    max_weight = fish["max_weight_kg"]
-                    break
-            captured_weight = round(random.uniform(min_weight, max_weight), 2)
-            config.game_save.on_fish_caught(fish_id, captured_weight)
+        for fish in FISH_MASTER_DATA["fish_list"]:
+            if fish["id"] == fish_id:
+                min_weight = fish["min_weight_kg"]
+                max_weight = fish["max_weight_kg"]
+                break
+        captured_weight = round(random.uniform(min_weight, max_weight), 2)
+        config.game_save.on_fish_caught(fish_id, captured_weight)
         config.GAME_STATE = CUTSCENE_OUT
         config.CUTSCENE_STATE = CUTSCENE_FROM_FISHING_TO_MAIN
     if progress == 0:
@@ -185,6 +157,7 @@ def fish_one_star():
     cooldown = max_cooldown
     progress_gain = 0.3
     progress_loss = 0.2
+    
 def fish_two_star():
     global progress, box_y, box_speed, box_size, cooldown, min_speed, max_speed, min_cooldown, max_cooldown, progress_gain, progress_loss
     print("發動二星魚！")
@@ -199,6 +172,7 @@ def fish_two_star():
     cooldown = max_cooldown
     progress_gain = 0.3
     progress_loss = 0.4
+    
 def fish_three_star():
     global progress, box_y, box_speed, box_size, cooldown, min_speed, max_speed, min_cooldown, max_cooldown, progress_gain, progress_loss
     print("發動三星魚！")
@@ -213,6 +187,7 @@ def fish_three_star():
     cooldown = max_cooldown
     progress_gain = 0.3
     progress_loss = 0.4
+    
 def fish_four_star():
     global progress, box_y, box_speed, box_size, cooldown, min_speed, max_speed, min_cooldown, max_cooldown, progress_gain, progress_loss
     print("發動四星魚！")
@@ -227,6 +202,7 @@ def fish_four_star():
     cooldown = max_cooldown
     progress_gain = 0.3
     progress_loss = 0.5
+    
 def fish_five_star():
     global progress, box_y, box_speed, box_size, cooldown, min_speed, max_speed, min_cooldown, max_cooldown, progress_gain, progress_loss
     print("發動五星魚！")

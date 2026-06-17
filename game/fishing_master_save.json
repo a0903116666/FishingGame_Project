@@ -4,30 +4,30 @@
         {
             "id": 1,
             "name": "塑膠袋",
-            "is_unlocked": false,
-            "max_weight": 0.0,
-            "catch_count": 0
+            "is_unlocked": true,
+            "max_weight": 0.01,
+            "catch_count": 1
         },
         {
             "id": 2,
             "name": "可樂罐",
-            "is_unlocked": false,
-            "max_weight": 0.0,
-            "catch_count": 0
+            "is_unlocked": true,
+            "max_weight": 0.04,
+            "catch_count": 4
         },
         {
             "id": 3,
             "name": "鞋子",
-            "is_unlocked": false,
-            "max_weight": 0.0,
-            "catch_count": 0
+            "is_unlocked": true,
+            "max_weight": 0.25,
+            "catch_count": 1
         },
         {
             "id": 4,
             "name": "指南針",
-            "is_unlocked": true,
-            "max_weight": 0.08,
-            "catch_count": 3
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
         },
         {
             "id": 5,
@@ -46,9 +46,9 @@
         {
             "id": 7,
             "name": "輪胎",
-            "is_unlocked": true,
-            "max_weight": 7.4,
-            "catch_count": 5
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
         },
         {
             "id": 101,
