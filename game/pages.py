@@ -2,13 +2,8 @@ import pygame
 import sys
 import json
 from config import *
-<<<<<<< HEAD
-# from body_control import body_cursor
-from fish_data import get_fish_data
-=======
 from body_control import body_cursor
 from fish_data import get_fish_data, FISH_MASTER_DATA
->>>>>>> 451fa6dd808a8c61f6388693ab4eceec2c62a4a3
 
 def homepage_menu():
     pygame.display.set_caption("2D 體感釣魚大師 - 首頁")
@@ -660,8 +655,4 @@ def settle_menu(fish_id, weight, is_new_record, is_new_species):
 digital_field_guide()
 #game_menu()
 #homepage_menu()
-<<<<<<< HEAD
-# settle_menu(fish_id, weight)
-=======
 settle_menu(403, 3.5, False, True)
->>>>>>> 451fa6dd808a8c61f6388693ab4eceec2c62a4a3

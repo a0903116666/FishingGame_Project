@@ -7,38 +7,30 @@ import system.Engine as Engine
 from config import WINDOW_WIDTH, WINDOW_HEIGHT
 
 class FishBox(BaseClass.GameObject):
-    def __init__(self, 
-    x, 
-    y, 
-    radius, 
-    speed_x, 
-    speed_y, 
-    particle_system: particle.Particles, 
-    onCollide,
-    target: BaseClass.GameObject
-    ):
-        super().__init__(x, y, 40, 40)
+    def __init__(self,
+        radius,
+        particle_system: particle.Particles, 
+        target: BaseClass.GameObject
+        ):
+        super().__init__(0, 0, 40, 40)
         self.enabled = True
         self.radius = radius
-        self.speed_x = speed_x
-        self.speed_y = speed_y
         self.cooldown = 0.1
         self.particle_system = particle_system
-        self.onCollide = onCollide
         self.target = target
+    
+    def start(self):
+        self.reset()
     
     def update(self):
         self.move()
         dx = self.target.x - self.x
         dy = self.target.y - self.y
         distance = (dx**2 + dy**2) ** 0.5
-        if distance < 50 + self.radius:
-            self.onCollide()
-            self.x = random.randint(0, WINDOW_WIDTH)
-            self.y = random.randint(0, WINDOW_HEIGHT)
-            self.radius = random.randint(5, 15)
-            self.speed_x = random.choice([-1, 1]) * random.randint(20, 100)
-            self.speed_y = random.choice([-1, 1]) * random.randint(20, 100)
+        
+        if distance < self.radius:
+            self.reset()
+            Engine.static_object["CutScene"][1].swap_scene(["fishing"], True)
         
         self.cooldown -= Engine.delta_time
         if self.cooldown <= 0:
@@ -49,6 +41,13 @@ class FishBox(BaseClass.GameObject):
                 self.x + math.cos(direction) * offset,
                 self.y + math.sin(direction) * offset
             )
+    
+    def reset(self):
+        self.x = random.randint(0, WINDOW_WIDTH)
+        self.y = random.randint(0, WINDOW_HEIGHT)
+        self.radius = random.randint(5, 15)
+        self.speed_x = random.choice([-1, 1]) * random.randint(20, 100)
+        self.speed_y = random.choice([-1, 1]) * random.randint(20, 100)
             
     def move(self):
         self.x += self.speed_x * Engine.delta_time

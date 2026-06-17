@@ -34,7 +34,7 @@ class Particles(BaseClass.GameObject):
             Engine.destroy_entity(delete, self.pool)
     
     def spawn_particle(self, x, y):
-        if len(self.particle_pool) <= 10:
+        if len(self.particle_pool) <= 40:
             bubble = Bubble(x, y, 50)
             self.particle_pool.append(
                 bubble

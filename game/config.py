@@ -1,7 +1,7 @@
 import pygame
 from save_system import FishingSaveSystem
 
-# game_save = FishingSaveSystem()
+game_save = FishingSaveSystem()
 
 FPS = 60
 SMOOTHING_FACTOR = 0.2  

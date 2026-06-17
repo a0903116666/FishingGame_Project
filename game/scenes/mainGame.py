@@ -18,21 +18,21 @@ class MainGame(BaseClass.GameObject):
                 200,
                 80,
                 "game/assets/GameStart_button.png",
-                lambda: Engine.static_object["CutScene"][1].swap_scene(["homepage"], True),
+                lambda: Engine.static_object["CutScene"][1].swap_scene(["fishing"], True),
                 Engine.static_object["Cursor"][1]
                 ),
             particle_system,
-            fishBox.FishBox(
-                WINDOW_WIDTH / 2,
-                WINDOW_HEIGHT / 2,
-                20,
-                40,
-                -40,
-                particle_system,
-                lambda :print("uwu"),
-                Engine.static_object["Cursor"][1]
-            )
             ]
+        
+        for i in range(5):
+            Engine.spawn_entity(
+                fishBox.FishBox(
+                    20,
+                    particle_system,
+                    Engine.static_object["Cursor"][1]
+                ),
+                "main"
+            )
     
     def render(self, screen):
         screen.fill((0, 255, 0))

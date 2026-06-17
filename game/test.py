@@ -5,6 +5,7 @@ from config import *
 from scenes.homepage import HomePage
 from scenes.mainGame import MainGame
 from scenes.gallery import Gallery
+from scenes.fishingGame import FishingGame
 
 
 pygame.init()
@@ -16,6 +17,7 @@ Engine.static_object["CutScene"] = (1, CutScene())
 
 HomePage()
 MainGame()
+FishingGame()
 Gallery()
 
 Engine.working_pools = ["homepage"]
