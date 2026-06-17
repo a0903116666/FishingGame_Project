@@ -5,7 +5,7 @@ from entity import Circle
 from body_control import body_cursor, gesture_detection
 
 def main_game_init():
-    global bubble_image, main_circle, COLLECTABLES
+    global bubble_image, main_circle, COLLECTABLES, resized_background_image, bobber_image
     config.GAME_STATE = MAIN_GAME
     config.CUTSCENE_STATE = CUTSCENE_FROM_MAIN_TO_FISHING
     fish_amount = 5
@@ -20,10 +20,16 @@ def main_game_init():
         COLLECTABLES.append(circle)
     bubble_image = pygame.image.load(str("game/assets/bubble.png")).convert_alpha()
     main_circle = Circle(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, 15, color=(255, 0, 0))
+    
+    background_image = pygame.image.load("game/assets/warter_surface.png").convert_alpha()
+    resized_background_image = pygame.transform.smoothscale(background_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
+
+    bobber_image = pygame.image.load("game/assets/bobber.png").convert_alpha()
+    bobber_image = pygame.transform.smoothscale(bobber_image, (100, 100))
 
 def main_game_render():
-    global PARTICLES ,bubble_image, main_circle
-    SCREEN.fill((0, 105, 255))
+    global PARTICLES ,bubble_image, main_circle, resized_background_image, bobber_image
+    SCREEN.blit(resized_background_image, (0, 0))
     for particle in PARTICLES:
         particle_size = int(particle.size)
         particle_image = pygame.transform.smoothscale(bubble_image, (particle_size, particle_size))
@@ -32,12 +38,13 @@ def main_game_render():
             int(particle.y - particle_size / 2),
         )
         SCREEN.blit(particle_image, particle_position)
-    pygame.draw.circle(
-            surface=SCREEN, 
-            color=main_circle.color, 
-            center=(int(main_circle.x), int(main_circle.y)), 
-            radius=main_circle.radius
-    )
+    SCREEN.blit(bobber_image, (main_circle.x - bobber_image.get_width() // 2, main_circle.y - bobber_image.get_height() // 2))
+    #pygame.draw.circle(
+    #        surface=SCREEN, 
+    #        color=main_circle.color, 
+    #        center=(int(main_circle.x), int(main_circle.y)), 
+    #        radius=main_circle.radius
+    #)
 
 def main_game_update():
     for collectable in COLLECTABLES:

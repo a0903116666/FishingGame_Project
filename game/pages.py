@@ -363,12 +363,9 @@ def digital_field_guide():
         for fish in loaded_fishes[current_displayed_star]:
             SCREEN.blit(fish["img"], fish["pos"])
 
-        # 根據「是否處於彈出視窗模式」分離操作邏輯
         is_hovering_something = False
 
         if not show_modal:
-            # 模式 A：正常瀏覽圖鑑
-            # (1) 檢查星級按鈕懸停
             for i, btn in enumerate(buttons):
                 if btn["rect"].collidepoint(cursor_pixel_x, cursor_pixel_y):
                     is_hovering_something = True
@@ -388,11 +385,9 @@ def digital_field_guide():
                     SCREEN.blit(btn["normal_img"], btn["normal_pos"])
             if not is_hovering_something:
                 for fish in loaded_fishes[current_displayed_star]:
-                    # 只有解鎖的魚才能點擊查看詳細資訊
                     if fish["rect"].collidepoint(cursor_pixel_x, cursor_pixel_y) and fish["data"]["is_unlocked"]:
                         is_hovering_something = True
 
-                        # 畫一個發光的黃框
                         pygame.draw.rect(SCREEN, (255, 215, 0), fish["rect"].inflate(10, 10), 3, border_radius=5)
                         
                         if hovered_fish_id != fish["data"]["id"]:
@@ -402,25 +397,20 @@ def digital_field_guide():
                         else:
                             ratio = (current_time - hover_start_time) / DWELL_THRESHOLD
                             if current_time - hover_start_time >= DWELL_THRESHOLD:
-                                # 👉 懸停時間到，開啟彈出視窗！
                                 show_modal = True
                                 selected_fish_record = fish["data"]
                                 ratio = 0.0
-                                hover_start_time = current_time # 重置時間給關閉邏輯用
-                        break # 一次只處理一隻魚
+                                hover_start_time = current_time 
+                        break 
 
         else:
-            # --- 模式 B：彈出視窗已開啟 ---
-            # 左側按鈕在彈出模式下保持靜態
             for btn in buttons:
                 SCREEN.blit(btn["normal_img"], btn["normal_pos"])
 
-            # (1) 繪製半透明黑色遮罩，讓背景暗下來
             overlay = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
             overlay.fill((0, 0, 0, 150))
             SCREEN.blit(overlay, (0, 0))
 
-            # (2) 繪製魚圖鑑紙質感底板
             SCREEN.blit(modal_bg, modal_rect.topleft)
 
             close_X_rect = close_icon.get_rect()
@@ -436,49 +426,36 @@ def digital_field_guide():
             title_color = (60, 40, 20)
             desc_color = (100, 80, 60)
 
-           # 🐟 畫魚的名字 (置中於寶藏圖上方的橫幅)
             title_surface = title_font.render(master_data["name"], True, title_color)
             title_x = modal_rect.centerx - (title_surface.get_width() // 2)
-            title_y = modal_rect.top + 10 # 依據你的橫幅高度微調
+            title_y = modal_rect.top + 10 
             SCREEN.blit(title_surface, (title_x, title_y))
 
-            # 🐟 畫星級 (置中於畫框下方)
             level_surface = desc_font.render(f"星級: {master_data['level']}  捕獲次數: {master_data['catch_count']}  最大重量: {master_data['max_weight']}", True, title_color)
             level_x = modal_rect.centerx - (level_surface.get_width() // 2 )
-            level_y = modal_rect.bottom - 150 # 從底部往上推
+            level_y = modal_rect.bottom - 150 
             SCREEN.blit(level_surface, (level_x, level_y))
 
-           # 🐟 畫介紹筆記 (每 16 個字換行，並置中對齊)
             full_text = master_data["comment"]
             lines = []
-            
-            # 1. 將文字每 16 個字切斷，存入 lines 陣列中
+
             for i in range(0, len(full_text), 16):
                 single_line = full_text[i:i+16]
                 lines.append(single_line)
                 
-            base_y = modal_rect.bottom - 120  # 第一行文字的起始 Y 座標
-            line_height = 28  # 每行文字之間的高度差 (可依據你的字體大小微調這個數字)
+            base_y = modal_rect.bottom - 120 
+            line_height = 28  
             
-            # 2. 逐行把文字渲染出來，並畫到畫布上
             for index in range(len(lines)):
                 line_text = lines[index]
-                
-                # 渲染這單一行的文字
                 comment_surface = desc_font.render(line_text, True, desc_color)
-                
-                # 計算 X 座標 (讓每一行都自己置中)
                 comment_x = modal_rect.centerx - (comment_surface.get_width() // 2)
-                
-                # 計算 Y 座標 (第一行加 0，第二行加 28，第三行加 56...)
                 comment_y = base_y + (index * line_height)
-                
-                # 畫上去！
+
                 SCREEN.blit(comment_surface, (comment_x, comment_y))
 
-            # 3. 繪製放大的魚圖片 - 數據路徑邏輯源自 illustrative 尺寸與位置
             img_id = selected_fish_record["id"]
-            img_path = f"fish_img/fish_{img_id}.png" # illustrative 路徑構建
+            img_path = f"fish_img/fish_{img_id}.png" 
 
             try:
                 big_fish_surf = pygame.image.load(img_path).convert_alpha()
@@ -569,7 +546,6 @@ def settle_menu(fish_id, weight, is_new_record, is_new_species):
     
     while waiting_for_input:
         current_time = pygame.time.get_ticks() / 1000.0
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -656,3 +632,4 @@ def settle_menu(fish_id, weight, is_new_record, is_new_species):
 #game_menu()
 #homepage_menu()
 settle_menu(403, 3.5, False, True)
+>>>>>>> 451fa6dd808a8c61f6388693ab4eceec2c62a4a3
