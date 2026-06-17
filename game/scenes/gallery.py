@@ -5,7 +5,8 @@ import system.BaseClass as BaseClass
 import system.UI as UI
 import system.Engine as Engine
 import system.Math as Math
-from config import WINDOW_WIDTH, WINDOW_HEIGHT, CUTSCENE_DURATION
+from config import WINDOW_WIDTH, WINDOW_HEIGHT, TITLE_FONT, DESC_FONT
+from fish_data import get_fish_data, FISH_MASTER_DATA
 
 class Display(BaseClass.GameObject):
     def __init__(self):
@@ -16,15 +17,26 @@ class Display(BaseClass.GameObject):
         self.close_button = UI.Button(
             WINDOW_WIDTH / 2 + 275, -100, 180, 100, "game/assets/cross.png", self.close, Engine.static_object["Cursor"][1]
         )
+        self.fish_img = UI.StaticImage(self.x, -WINDOW_HEIGHT, 96, 96, None)
         Engine.static_object["fish_display"] = (2, self)
         Engine.static_object["close_button"] = (1, self.close_button)
+        Engine.static_object["fish_image"] = (1, self.fish_img)
+        self.fish_id = None
+        self.master_data = None
         self.close_button.enabled = False
+        self.fish_img.enabled = False
+        self.record = None
     
     def show_record(self, record):
         self.y = -WINDOW_HEIGHT / 2
         self.close_button.enabled = True
         self.enabled = True
         self.display = True
+        self.record = record
+        self.fish_id = self.record["id"]
+        self.master_data = get_fish_data(self.fish_id)
+        self.fish_img.enabled = True
+        self.fish_img.texture = Engine.get_image(f"fish_img/fish_{self.fish_id}.png")
         Engine.pause = True
     
     def close(self):
@@ -33,26 +45,67 @@ class Display(BaseClass.GameObject):
     
     def update(self):
         if self.display:
-            self.y = int(Math.lerp(self.y, WINDOW_HEIGHT / 2, Engine.delta_time * 20))
+            self.y = Math.clamp(Math.lerp(self.y, WINDOW_HEIGHT / 2 + 20, Engine.delta_time * 20), -WINDOW_HEIGHT, WINDOW_HEIGHT / 2)
         else:
             self.y = Math.lerp(self.y, -WINDOW_HEIGHT / 2 - 20, Engine.delta_time * 20)
         self.close_button.y = self.y - 200
         if self.y < -WINDOW_HEIGHT / 2:
             self.enabled = False
             self.close_button.enabled = False
+            self.fish_img.enabled = False
     
     def render(self, screen):
+        if not self.enabled: return
         overlay = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
         overlay.fill((0, 0, 0, 150 * Math.clamp(self.y / WINDOW_HEIGHT + 0.5, 0, 1)))
         screen.blit(overlay, (0, 0))
         super().render(screen)
+        if self.record == None: return
+        
+        title_color = (60, 40, 20)
+        desc_color = (100, 80, 60)
+
+        # 🐟 畫魚的名字 (置中於寶藏圖上方的橫幅)
+        title_surface = TITLE_FONT.render(self.master_data["name"], True, title_color)
+        title_x = self.x - (title_surface.get_width() // 2)
+        title_y = self.y - 190 # 依據你的橫幅高度微調
+        screen.blit(title_surface, (title_x, title_y))
+
+        # 🐟 畫星級 (置中於畫框下方)
+        level_surface = DESC_FONT.render(f"星級: {self.master_data['level']}  捕獲次數: {self.master_data['catch_count']}  最大重量: {self.master_data['max_weight']}", True, title_color)
+        level_x = self.x - (level_surface.get_width() // 2)
+        level_y = self.y + 140 # 從底部往上推
+        screen.blit(level_surface, (level_x, level_y))
+
+        # 🐟 畫介紹筆記 (每 16 個字換行，並置中對齊)
+        full_text = self.master_data["comment"]
+        lines = []
+        
+        for i in range(0, len(full_text), 20):
+            single_line = full_text[i:i+20]
+            lines.append(single_line)
+            
+        base_y = self.y + 50  # 第一行文字的起始 Y 座標
+        line_height = 28  # 每行文字之間的高度差 (可依據你的字體大小微調這個數字)
+        
+        for index in range(len(lines)):
+            line_text = lines[index]
+            comment_surface = DESC_FONT.render(line_text, True, desc_color)
+            comment_x = self.x - (comment_surface.get_width() // 2)
+            comment_y = base_y + (index * line_height)
+            screen.blit(comment_surface, (comment_x, comment_y))
+        
+        self.fish_img.y = self.y - 42
 
 class Gallery(BaseClass.GameObject):
     def __init__(self):
         super().__init__(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, WINDOW_WIDTH, WINDOW_HEIGHT)
         self.texture = Engine.get_image("game/assets/DigitalFieldGuide_background.png")
         Display()
-        display = Engine.static_object["fish_display"][1]
+        Engine.object_pools["gallery"] = [self]
+        self.display = Engine.static_object["fish_display"][1]
+    
+    def start(self):
         Engine.object_pools["gallery"] = [
             self,
             UI.StaticImage(
@@ -112,7 +165,7 @@ class Gallery(BaseClass.GameObject):
                     150 + row * 90,
                     64, 64,
                     img_path,
-                    lambda current_record = record: display.show_record(current_record),
+                    lambda current_record = record: self.display.show_record(current_record),
                     Engine.static_object["Cursor"][1]
                 )
             button.enabled = is_unlocked

@@ -1,7 +1,5 @@
 import system.BaseClass as BaseClass
-import system.UI as UI
 import system.Engine as Engine
-from config import WINDOW_WIDTH, WINDOW_HEIGHT
 
 class Bubble(BaseClass.GameObject):
     def __init__(self, x, y, size):

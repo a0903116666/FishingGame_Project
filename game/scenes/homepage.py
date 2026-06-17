@@ -25,7 +25,7 @@ class HomePage(BaseClass.GameObject):
                 200,
                 80,
                 "game/assets/DigitalFieldGuide_button.png",
-                lambda: Engine.static_object["CutScene"][1].swap_scene(["gallery", "1star"]),
+                lambda: Engine.static_object["CutScene"][1].swap_scene(["gallery", "1star"], True),
                 Engine.static_object["Cursor"][1]
                 ),
             UI.Button(

@@ -73,3 +73,8 @@ class FishingSaveSystem:
             print(f"⚠️ 警告： Master Data 中找不到 ID 為 {fish_id} 的魚類資訊，存檔未更新。")
 
         return new_unlock 
+
+    def get_fish_save_data(self, fish_id):
+        for record in self.player_dex_record["records"]:
+            if record["id"] == fish_id:
+                return record
