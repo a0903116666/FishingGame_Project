@@ -25,47 +25,30 @@
         {
             "id": 4,
             "name": "指南針",
-<<<<<<< HEAD
             "is_unlocked": true,
             "max_weight": 0.08,
             "catch_count": 12
-=======
-            "is_unlocked": false,
-            "max_weight": 0.0,
-            "catch_count": 0
->>>>>>> 4314b80296e9381434a0e9fcf1015d9cc98a5808
         },
         {
             "id": 5,
             "name": "生鏽鐵管",
             "is_unlocked": true,
-<<<<<<< HEAD
             "max_weight": 2.84,
             "catch_count": 9
-=======
-            "max_weight": 3.44,
-            "catch_count": 3
->>>>>>> 4314b80296e9381434a0e9fcf1015d9cc98a5808
         },
         {
             "id": 6,
             "name": "零食包裝袋",
             "is_unlocked": true,
             "max_weight": 0.0,
-            "catch_count": 5
+            "catch_count": 6
         },
         {
             "id": 7,
             "name": "輪胎",
-<<<<<<< HEAD
             "is_unlocked": true,
             "max_weight": 5.25,
             "catch_count": 6
-=======
-            "is_unlocked": false,
-            "max_weight": 0.0,
-            "catch_count": 0
->>>>>>> 4314b80296e9381434a0e9fcf1015d9cc98a5808
         },
         {
             "id": 101,

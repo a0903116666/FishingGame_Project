@@ -103,6 +103,7 @@ class SettleMenu(BaseClass.GameObject):
 class FishingGame(BaseClass.GameObject):
     def __init__(self):
         super().__init__(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, WINDOW_WIDTH, WINDOW_HEIGHT)
+        self.texture = Engine.get_image("game/assets/undersea_background.png")
         Engine.object_pools["fishing"] = [
             self,
             ]
@@ -200,7 +201,7 @@ class FishingGame(BaseClass.GameObject):
         self.enabled = False
     
     def failed(self):
-        print("魚跑走了...")
+        self.enabled = False
         Engine.static_object["CutScene"][1].swap_scene(["main"])
     
     def difficulty(self):
@@ -258,7 +259,7 @@ class FishingGame(BaseClass.GameObject):
         self.box_speed = random.uniform(self.min_speed, self.max_speed) * random.choice([-1, 1])
     
     def render(self, screen):
-        screen.fill((0, 105, 255))
+        super().render(screen)
         pygame.draw.rect(
             surface=screen,
             color=(150, 0, 150),
