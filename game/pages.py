@@ -2,8 +2,13 @@ import pygame
 import sys
 import json
 from config import *
+<<<<<<< HEAD
+# from body_control import body_cursor
+from fish_data import get_fish_data
+=======
 from body_control import body_cursor
 from fish_data import get_fish_data, FISH_MASTER_DATA
+>>>>>>> 451fa6dd808a8c61f6388693ab4eceec2c62a4a3
 
 def homepage_menu():
     pygame.display.set_caption("2D 體感釣魚大師 - 首頁")
@@ -350,7 +355,9 @@ def digital_field_guide():
                 if event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:  
                     waiting_for_input = False 
 
-        cursor_x, cursor_y = body_cursor()
+        cursor_x, cursor_y = pygame.mouse.get_pos()
+        cursor_x = cursor_x / WINDOW_WIDTH - 0.5
+        cursor_y = cursor_y / WINDOW_HEIGHT - 0.5
         cursor_pixel_x = max(min((cursor_x + 0.5) * WINDOW_WIDTH, WINDOW_WIDTH - 50), 50)
         cursor_pixel_y = max(min((cursor_y + 0.5) * WINDOW_HEIGHT, WINDOW_HEIGHT - 50), 50)
 
@@ -421,8 +428,8 @@ def digital_field_guide():
 
             title_font = pygame.font.Font("game/assets/pixel_font.ttf", 32)
             desc_font = pygame.font.Font("game/assets/pixel_font.ttf", 20)
-            title_color = (60, 40, 20) 
-            desc_color = (100, 80, 60) 
+            title_color = (60, 40, 20)
+            desc_color = (100, 80, 60)
 
             title_surface = title_font.render(master_data["name"], True, title_color)
             title_x = modal_rect.centerx - (title_surface.get_width() // 2)
@@ -629,4 +636,4 @@ def settle_menu(fish_id, weight, is_new_record, is_new_species):
 digital_field_guide()
 #game_menu()
 #homepage_menu()
-#settle_menu(403, 3.5, False, True)
+settle_menu(403, 3.5, False, True)
