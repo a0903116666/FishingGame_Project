@@ -1,7 +1,7 @@
 import pygame
 from save_system import FishingSaveSystem
 
-game_save = FishingSaveSystem()
+# game_save = FishingSaveSystem()
 
 FPS = 60
 SMOOTHING_FACTOR = 0.2  
@@ -32,3 +32,9 @@ CUTSCENE_IN = 4
 
 CUTSCENE_FROM_MAIN_TO_FISHING = 0
 CUTSCENE_FROM_FISHING_TO_MAIN = 1
+CUTSCENE_DURATION = 0.25
+
+CURSOR_SIZE = 50
+HOVER_TIME = 0.5
+USE_BODY_TRACKING = False
+pygame.mouse.set_visible(False)

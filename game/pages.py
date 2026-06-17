@@ -2,7 +2,7 @@ import pygame
 import sys
 import json
 from config import *
-from body_control import body_cursor
+# from body_control import body_cursor
 from fish_data import get_fish_data
 
 def homepage_menu():
@@ -351,7 +351,9 @@ def digital_field_guide():
                 if event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:  
                     waiting_for_input = False 
 
-        cursor_x, cursor_y = body_cursor()
+        cursor_x, cursor_y = pygame.mouse.get_pos()
+        cursor_x = cursor_x / WINDOW_WIDTH - 0.5
+        cursor_y = cursor_y / WINDOW_HEIGHT - 0.5
         cursor_pixel_x = max(min((cursor_x + 0.5) * WINDOW_WIDTH, WINDOW_WIDTH - 50), 50)
         cursor_pixel_y = max(min((cursor_y + 0.5) * WINDOW_HEIGHT, WINDOW_HEIGHT - 50), 50)
 
@@ -432,8 +434,8 @@ def digital_field_guide():
 
             title_font = pygame.font.Font("game/assets/pixel_font.ttf", 32)
             desc_font = pygame.font.Font("game/assets/pixel_font.ttf", 20)
-            title_color = (60, 40, 20) 
-            desc_color = (100, 80, 60) 
+            title_color = (60, 40, 20)
+            desc_color = (100, 80, 60)
 
            # 🐟 畫魚的名字 (置中於寶藏圖上方的橫幅)
             title_surface = title_font.render(master_data["name"], True, title_color)
@@ -561,7 +563,7 @@ def settle_menu(fish_id, weight):
         SCREEN.blit(resized_settle_image, (WINDOW_WIDTH // 2 - 325, (WINDOW_HEIGHT // 2) - 220))
         pygame.display.flip()
 
-#digital_field_guide()
+digital_field_guide()
 #game_menu()
 #homepage_menu()
-settle_menu(fish_id, weight)
+# settle_menu(fish_id, weight)
