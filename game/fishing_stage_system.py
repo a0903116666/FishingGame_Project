@@ -24,7 +24,7 @@ progress_loss = 0.2
 choice = 0
 
 def fishing_stage_init():
-    global progress, box_y, box_speed, box_size, cooldown, progress_corlor, cursor_pixel, choice
+    global progress, box_y, box_speed, box_size, cooldown, progress_corlor, cursor_pixel, choice, background_image, resized_background_image, resized_hook_image
 
     stars = [1, 2, 3, 4, 5]
     weights = [1, 0, 0, 0, 0]
@@ -39,10 +39,16 @@ def fishing_stage_init():
     progress_corlor = (255, 0, 0)
     _, cursor_y = body_cursor()
     cursor_pixel = max(min((cursor_y + 0.5) * WINDOW_HEIGHT, WINDOW_HEIGHT - 50), 50)
+    background_image = pygame.image.load("game/assets/undersea_background.png").convert_alpha()
+    resized_background_image = pygame.transform.smoothscale(background_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
+
+    hook_image = pygame.image.load("game/assets/hook.png").convert_alpha()
+    resized_hook_image = pygame.transform.smoothscale(hook_image, (50, 50))
+
 
 def fishing_stage_render():
-    global progress, box_y, box_size, progress_corlor, cursor_pixel
-    SCREEN.fill((0, 105, 255))
+    global progress, box_y, box_size, progress_corlor, cursor_pixel, resized_background_image, resized_hook_image
+    SCREEN.blit(resized_background_image, (0, 0))
     pygame.draw.rect(
             surface=SCREEN,
             color=(150, 0, 150),
@@ -56,12 +62,13 @@ def fishing_stage_render():
         width=2
     )
     # draw cursor with circle
-    pygame.draw.circle(
-        surface=SCREEN, 
-        color=(255, 0, 0), 
-        center=(65, int(cursor_pixel)),
-        radius=10
-    )
+    #pygame.draw.circle(
+    #    surface=SCREEN, 
+    #    color=(255, 0, 0), 
+    #    center=(65, int(cursor_pixel)),
+    #   radius=10
+    #)
+    SCREEN.blit(resized_hook_image, (40, int(cursor_pixel) - resized_hook_image.get_height() // 2))
     # progress bar render
     pygame.draw.rect(
         surface=SCREEN,
