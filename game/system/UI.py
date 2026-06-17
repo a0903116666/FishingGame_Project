@@ -4,6 +4,7 @@ from config import *
 import system.Engine as Engine
 import system.Math as Math
 from system.BaseClass import *
+import body_control
 
 class AnimationObject(GameObject):
     def __init__(self, x, y, w, h):
@@ -27,6 +28,8 @@ class Cursor(GameObject):
     def update(self):
         if not USE_BODY_TRACKING:
             self.x, self.y = pygame.mouse.get_pos()
+        else:
+            self.x, self.y = body_control.body_cursor()
         
         if self.hover and self.last_hover == self.hover:
             self.hover_ratio = (time.time() - self.hover_start) / HOVER_TIME

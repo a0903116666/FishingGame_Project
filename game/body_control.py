@@ -49,7 +49,7 @@ def body_cursor():
     current_cursor_x = max(0, min(clamp, current_cursor_x))
     current_cursor_y = max(0, min(clamp, current_cursor_y))
 
-    return current_cursor_x - 0.5, current_cursor_y - 0.5
+    return current_cursor_x * WINDOW_WIDTH, current_cursor_y * WINDOW_HEIGHT
 
 # 根據兩點的座標，計算角度
 def vector_2d_angle(v1, v2):
