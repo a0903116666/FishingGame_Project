@@ -4,11 +4,101 @@ import system.BaseClass as BaseClass
 import system.UI as UI
 import system.Engine as Engine
 import system.Math as Math
-import entities.fishBox as fishBox
-import entities.particles as particles
-from config import WINDOW_WIDTH, WINDOW_HEIGHT
+from config import WINDOW_WIDTH, WINDOW_HEIGHT, TITLE_FONT, DESC_FONT
 import config
-from fish_data import FISH_MASTER_DATA
+from fish_data import FISH_MASTER_DATA, get_fish_data
+
+class SettleMenu(BaseClass.GameObject):
+    def __init__(self, fish_id, weight, is_new_record, is_new_species):
+        super().__init__(WINDOW_WIDTH / 2, -WINDOW_HEIGHT / 2, 650, 440)
+        
+        self.texture = Engine.get_image("game/assets/settle_column2.png")
+        
+        self.fish_id = fish_id
+        self.weight = weight
+        self.is_new_record = is_new_record
+        self.is_new_species = is_new_species
+        
+        self.continue_button = UI.Button(
+            WINDOW_WIDTH / 2 + 125, self.y,
+            250, 100,
+            "game/assets/continue_button.png",
+            lambda: Engine.static_object["CutScene"][1].swap_scene(["main"]),
+            Engine.static_object["Cursor"][1]
+        )
+        self.gallery_button = UI.Button(
+            WINDOW_WIDTH / 2 - 125, self.y,
+            250, 100,
+            "game/assets/gotoguide_button.png",
+            lambda: Engine.static_object["CutScene"][1].swap_scene(["gallery", "1star"], True),
+            Engine.static_object["Cursor"][1]
+        )
+        self.new_species_img = UI.StaticImage(
+            WINDOW_WIDTH // 2 + 170, self.y - 70,
+            300, 150,
+            "game/assets/new_species.png",
+        )
+        self.new_record_img = UI.StaticImage(
+            WINDOW_WIDTH // 2 + 170, self.y - 70, 
+            300, 150,
+            "game/assets/new_record.png",
+        )
+        self.fish_img = UI.StaticImage(
+            250, self.y,
+            128, 128,
+            f"fish_img/fish_{self.fish_id}.png",
+        )
+        
+        Engine.object_pools["settle"] = [
+            self,
+            self.continue_button,
+            self.gallery_button,
+            self.fish_img,
+            self.new_species_img,
+            self.new_record_img,
+        ]
+        Engine.add_pools(["settle"])
+        
+        if not is_new_species: Engine.destroy_entity(self.new_species_img, "settle")
+        if not is_new_record or is_new_species: Engine.destroy_entity(self.new_record_img, "settle")
+        
+        self.master_data = get_fish_data(self.fish_id)
+    
+    def update(self):
+        self.y = Math.clamp(Math.lerp(self.y, WINDOW_HEIGHT / 2 + 20, Engine.delta_time * 5), -WINDOW_HEIGHT, WINDOW_HEIGHT / 2)
+        self.continue_button.y = self.y + 145
+        self.gallery_button.y = self.y + 145
+        self.new_record_img.y = self.y - 150
+        self.new_species_img.y = self.y - 150
+        self.fish_img.y = self.y - 36
+
+    def render(self, screen):
+        if not self.enabled: return
+        overlay = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 150 * Math.clamp(self.y / WINDOW_HEIGHT + 0.5, 0, 1)))
+        screen.blit(overlay, (0, 0))
+        super().render(screen)
+        title_color = (60, 40, 20)
+        desc_color = (100, 80, 60)
+    
+        title_surface = TITLE_FONT.render("釣魚結算", True, title_color)
+        title_x = WINDOW_WIDTH // 2 - (title_surface.get_width() // 2)
+        title_y = (WINDOW_HEIGHT // 2) - 200  + self.y - WINDOW_HEIGHT / 2
+        screen.blit(title_surface, (title_x, title_y))
+
+        text_start_x = (WINDOW_WIDTH // 2) + 20
+        base_y = (WINDOW_HEIGHT // 2) - 80 + self.y - WINDOW_HEIGHT / 2
+        line_spacing = 40
+        fish = get_fish_data(int(self.fish_id))
+
+        name_surface = DESC_FONT.render(f"魚名：{fish['name']}", True, desc_color)
+        screen.blit(name_surface, (text_start_x, base_y))
+
+        weight_surface = DESC_FONT.render(f"重量：{self.weight} kg", True, desc_color)
+        screen.blit(weight_surface, (text_start_x, base_y + line_spacing * 1))
+
+        rarity_surface = DESC_FONT.render(f"稀有度：{fish['level']}", True, desc_color)
+        screen.blit(rarity_surface, (text_start_x, base_y + line_spacing * 2))
 
 class FishingGame(BaseClass.GameObject):
     def __init__(self):
@@ -69,6 +159,7 @@ class FishingGame(BaseClass.GameObject):
                 self.cooldown -= Engine.delta_time
     
     def start(self):
+        self.enabled = True
         stars = [1, 2, 3, 4, 5]
         weights = [1, 0, 0, 0, 0]
         self.star = random.choices(stars, weights=weights)[0]
@@ -91,9 +182,22 @@ class FishingGame(BaseClass.GameObject):
                 max_weight = fish["max_weight_kg"]
                 break
         captured_weight = round(random.uniform(min_weight, max_weight), 2)
+        data = config.game_save.get_fish_save_data(fish_id)
+        is_new_record = False
+        is_new_species = False
+        if captured_weight > data["max_weight"]:
+            is_new_record = True
+        if not data["is_unlocked"]:
+            is_new_species = True
         config.game_save.on_fish_caught(fish_id, captured_weight)
         print("caught", fish_id)
-        Engine.static_object["CutScene"][1].swap_scene(["main"])
+        SettleMenu(
+            fish_id,
+            captured_weight,
+            is_new_record,
+            is_new_species
+        )
+        self.enabled = False
     
     def failed(self):
         print("魚跑走了...")

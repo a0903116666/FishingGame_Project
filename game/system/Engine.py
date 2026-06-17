@@ -20,10 +20,12 @@ static_object: dict[str, tuple[int, GameObject]] = {}
 working_pools: list[str] = []
 
 pause = False
+pauseMenu = False
 running = True
 delta_time = 0
 
 def get_image(filename: str):
+    if filename == None: return None
     try:
         img = pygame.image.load(filename).convert_alpha()
         return img
@@ -78,6 +80,11 @@ def add_pools(pools: list[str], initialize = False):
     if initialize:
         for pool in pools:
             init_pools([pool])
+
+def delete_pools(pools: list[str]):
+    for pool in pools:
+        object_pools[pool].clear()
+        working_pools.remove(pool)
 
 def init_pools(pools: list[str]):
     for pool in pools:

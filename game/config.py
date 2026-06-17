@@ -38,3 +38,6 @@ CURSOR_SIZE = 50
 HOVER_TIME = 0.5
 USE_BODY_TRACKING = False
 pygame.mouse.set_visible(False)
+
+TITLE_FONT = pygame.font.Font("game/assets/pixel_font.ttf", 32)
+DESC_FONT = pygame.font.Font("game/assets/pixel_font.ttf", 20)

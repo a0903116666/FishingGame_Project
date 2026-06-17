@@ -2,7 +2,7 @@ import pygame
 import sys
 import json
 from config import *
-from body_control import body_cursor
+# from body_control import body_cursor
 from fish_data import get_fish_data, FISH_MASTER_DATA
 
 def homepage_menu():
@@ -578,7 +578,7 @@ def settle_menu(fish_id, weight, is_new_record, is_new_species):
                 if event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:  
                     waiting_for_input = False
                     
-        cursor_x, cursor_y = body_cursor()
+        cursor_x, cursor_y = pygame.mouse.get_pos()
         cursor_pixel_x = max(min((cursor_x + 0.5) * WINDOW_WIDTH, WINDOW_WIDTH - 50), 50)   
         cursor_pixel_y = max(min((cursor_y + 0.5) * WINDOW_HEIGHT, WINDOW_HEIGHT - 50), 50)
 
@@ -652,7 +652,7 @@ def settle_menu(fish_id, weight, is_new_record, is_new_species):
 
         pygame.display.flip()
 
-digital_field_guide()
+# digital_field_guide()
 #game_menu()
 #homepage_menu()
 settle_menu(403, 3.5, False, True)

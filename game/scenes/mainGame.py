@@ -1,4 +1,3 @@
-import pygame
 import system.BaseClass as BaseClass
 import system.UI as UI
 import system.Engine as Engine
@@ -9,18 +8,10 @@ from config import WINDOW_WIDTH, WINDOW_HEIGHT
 class MainGame(BaseClass.GameObject):
     def __init__(self):
         super().__init__(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, WINDOW_WIDTH, WINDOW_HEIGHT)
+        self.texture = Engine.get_image("game/assets/warter_surface.png")
         particle_system = particles.Particles("main")
         Engine.object_pools["main"] = [
             self,
-            UI.Button(
-                WINDOW_WIDTH / 2, 
-                WINDOW_HEIGHT / 2 - 25,
-                200,
-                80,
-                "game/assets/GameStart_button.png",
-                lambda: Engine.static_object["CutScene"][1].swap_scene(["fishing"], True),
-                Engine.static_object["Cursor"][1]
-                ),
             particle_system,
             ]
         
@@ -34,5 +25,5 @@ class MainGame(BaseClass.GameObject):
                 "main"
             )
     
-    def render(self, screen):
-        screen.fill((0, 255, 0))
+    # def render(self, screen):
+    #     screen.fill((0, 255, 0))

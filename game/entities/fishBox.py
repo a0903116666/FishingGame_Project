@@ -2,7 +2,6 @@ import random
 import math
 import system.BaseClass as BaseClass
 import entities.particles as particle
-import system.UI as UI
 import system.Engine as Engine
 from config import WINDOW_WIDTH, WINDOW_HEIGHT
 

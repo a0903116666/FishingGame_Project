@@ -6,6 +6,7 @@ from scenes.homepage import HomePage
 from scenes.mainGame import MainGame
 from scenes.gallery import Gallery
 from scenes.fishingGame import FishingGame
+from scenes.pauseMenu import PauseMenu
 
 
 pygame.init()
@@ -19,8 +20,10 @@ HomePage()
 MainGame()
 FishingGame()
 Gallery()
+PauseMenu()
 
 Engine.working_pools = ["homepage"]
+Engine.init_pools(["homepage"])
 
 Engine.running = True
 while Engine.running:
@@ -29,7 +32,7 @@ while Engine.running:
             Engine.running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                Engine.pause = True
+                Engine.pauseMenu = not Engine.pauseMenu
     Engine.full()
     # print(Engine.working_pools)
     
