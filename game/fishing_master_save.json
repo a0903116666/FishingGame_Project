@@ -6,7 +6,7 @@
             "name": "塑膠袋",
             "is_unlocked": true,
             "max_weight": 0.01,
-            "catch_count": 14
+            "catch_count": 17
         },
         {
             "id": 2,
@@ -18,37 +18,37 @@
         {
             "id": 3,
             "name": "鞋子",
-            "is_unlocked": false,
-            "max_weight": 0.33,
-            "catch_count": 4
+            "is_unlocked": true,
+            "max_weight": 0.39,
+            "catch_count": 6
         },
         {
             "id": 4,
             "name": "指南針",
             "is_unlocked": true,
             "max_weight": 0.08,
-            "catch_count": 12
+            "catch_count": 18
         },
         {
             "id": 5,
             "name": "生鏽鐵管",
             "is_unlocked": true,
             "max_weight": 2.84,
-            "catch_count": 9
+            "catch_count": 11
         },
         {
             "id": 6,
             "name": "零食包裝袋",
             "is_unlocked": true,
             "max_weight": 0.0,
-            "catch_count": 6
+            "catch_count": 11
         },
         {
             "id": 7,
             "name": "輪胎",
             "is_unlocked": true,
-            "max_weight": 5.25,
-            "catch_count": 6
+            "max_weight": 7.78,
+            "catch_count": 16
         },
         {
             "id": 101,

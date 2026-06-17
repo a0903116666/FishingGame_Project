@@ -27,7 +27,7 @@ class FishBox(BaseClass.GameObject):
         dy = self.target.y - self.y
         distance = (dx**2 + dy**2) ** 0.5
         
-        if distance < self.radius:
+        if distance < self.radius + 30:
             self.reset()
             Engine.static_object["CutScene"][1].swap_scene(["fishing"], True)
         

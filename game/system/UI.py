@@ -41,6 +41,9 @@ class Cursor(GameObject):
         self.last_hover = self.hover
  
     def render(self, screen):
+        if not Engine.pauseMenu and "settle" not in Engine.working_pools:
+            if "main" in Engine.working_pools or "fishing" in Engine.working_pools:
+                return
         if self.hover_ratio > 0.0:
             for i in range(int(self.hover_ratio * 8 + 0.5)):
                 rotated_arc = pygame.transform.rotate(self.cursor_hint_image, -45 * i)

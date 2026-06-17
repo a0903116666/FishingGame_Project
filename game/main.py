@@ -34,6 +34,5 @@ while Engine.running:
             if event.key == pygame.K_ESCAPE:
                 Engine.pauseMenu = not Engine.pauseMenu
     Engine.full()
-    # print(Engine.working_pools)
     
 pygame.quit()

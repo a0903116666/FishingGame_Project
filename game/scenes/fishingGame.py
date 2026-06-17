@@ -1,4 +1,5 @@
 import pygame
+import math
 import random
 import system.BaseClass as BaseClass
 import system.UI as UI
@@ -7,6 +8,39 @@ import system.Math as Math
 from config import WINDOW_WIDTH, WINDOW_HEIGHT, TITLE_FONT, DESC_FONT
 import config
 from fish_data import FISH_MASTER_DATA, get_fish_data
+
+class FishAnimation(BaseClass.GameObject):
+    def __init__(self):
+        super().__init__(WINDOW_WIDTH / 2, 0, 400, 400)
+        self.texture = Engine.get_image("game/assets/pixel_fish.png")
+        self.angleStack = 0
+        self.jumpingStack = 0
+        self.jumpMag = 0
+        self.angleMag = 0
+        self.progress = 0
+    
+    def start(self):
+        self.angleStack = 0
+        self.jumpingStack = 0
+        self.angleMag = 0
+        self.jumpMag = 0
+        self.progress = 0
+    
+    def update_value(self, progress):
+        self.progress = progress
+        self.angleStack += (progress * 5) * 15 * Engine.delta_time * random.uniform(0.8, 1)
+        self.jumpingStack += (progress + 1) * 20 * Engine.delta_time * random.uniform(0.8, 1)
+        self.jumpMag = (1 - progress) * 50
+        self.angleMag = (1 - progress) * 10 + 5
+    
+    def render(self, screen):
+        angle = math.sin(self.angleStack) * self.angleMag
+        jump = math.sin(self.jumpingStack) * self.jumpMag
+        rotated = pygame.transform.rotate(self.texture, angle)
+        arc_rect = rotated.get_rect(center=(200 + math.sin(math.radians(angle)) * 180, 200 - abs(math.cos(math.radians(angle))) * 180))
+        arc_rect.y += (1 - self.progress) * (WINDOW_HEIGHT + 50) - jump
+        arc_rect.x += WINDOW_WIDTH / 4
+        screen.blit(rotated, arc_rect)
 
 class SettleMenu(BaseClass.GameObject):
     def __init__(self, fish_id, weight, is_new_record, is_new_species):
@@ -104,8 +138,15 @@ class FishingGame(BaseClass.GameObject):
     def __init__(self):
         super().__init__(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, WINDOW_WIDTH, WINDOW_HEIGHT)
         self.texture = Engine.get_image("game/assets/undersea_background.png")
+        self.hook = UI.StaticImage(
+                65, 0, 80, 45,
+                "game/assets/hook.png"
+            )
+        self.animation = FishAnimation()
         Engine.object_pools["fishing"] = [
             self,
+            self.hook,
+            self.animation
             ]
         self.star = 1
         self.progress = 0
@@ -125,6 +166,8 @@ class FishingGame(BaseClass.GameObject):
     
     def update(self):
         self.cursor_pixel = Math.clamp(Engine.static_object["Cursor"][1].y, 50, WINDOW_HEIGHT - 50)
+        self.animation.update_value(self.progress)
+        self.hook.y = self.cursor_pixel
 
         if abs(self.cursor_pixel - self.box_y) < self.box_size // 2:
             self.progress += self.progress_gain * Engine.delta_time
@@ -272,12 +315,12 @@ class FishingGame(BaseClass.GameObject):
             rect=(50, 50, 30, WINDOW_HEIGHT - 100),
             width=2
         )
-        pygame.draw.circle(
-            surface=screen, 
-            color=(255, 0, 0), 
-            center=(65, int(self.cursor_pixel)),
-            radius=10
-        )
+        # pygame.draw.circle(
+        #     surface=screen, 
+        #     color=(255, 0, 0), 
+        #     center=(65, int(self.cursor_pixel)),
+        #     radius=10
+        # )
         pygame.draw.rect(
             surface=screen,
             color=self.progress_color,
