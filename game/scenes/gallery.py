@@ -5,7 +5,7 @@ import system.BaseClass as BaseClass
 import system.UI as UI
 import system.Engine as Engine
 import system.Math as Math
-from config import WINDOW_WIDTH, WINDOW_HEIGHT, TITLE_FONT, DESC_FONT
+from config import WINDOW_WIDTH, WINDOW_HEIGHT, TITLE_FONT, DESC_FONT, game_save
 from fish_data import get_fish_data, FISH_MASTER_DATA
 
 class Display(BaseClass.GameObject):
@@ -35,6 +35,7 @@ class Display(BaseClass.GameObject):
         self.record = record
         self.fish_id = self.record["id"]
         self.master_data = get_fish_data(self.fish_id)
+        self.json_data = game_save.get_fish_save_data(self.fish_id)
         self.fish_img.enabled = True
         self.fish_img.texture = Engine.get_image(f"fish_img/fish_{self.fish_id}.png")
         Engine.pause = True
@@ -72,7 +73,7 @@ class Display(BaseClass.GameObject):
         screen.blit(title_surface, (title_x, title_y))
 
         # 🐟 畫星級 (置中於畫框下方)
-        level_surface = DESC_FONT.render(f"星級: {self.master_data['level']}  捕獲次數: {self.master_data['catch_count']}  最大重量: {self.master_data['max_weight']}", True, title_color)
+        level_surface = DESC_FONT.render(f"星級: {self.master_data['level']}  捕獲次數: {self.json_data['catch_count']}  最大重量: {self.json_data['max_weight']}", True, title_color)
         level_x = self.x - (level_surface.get_width() // 2)
         level_y = self.y + 140 # 從底部往上推
         screen.blit(level_surface, (level_x, level_y))

@@ -62,7 +62,6 @@ class FishingSaveSystem:
                     old_record = record["max_weight"]
                     record["max_weight"] = weight
                     print(f"🏆 打破紀錄啦！【{record['name']}】的新最大重量：{weight} kg (舊紀錄: {old_record} kg)")
-                
                 updated_any = True
                 break 
         

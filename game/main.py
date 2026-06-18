@@ -10,7 +10,7 @@ from scenes.pauseMenu import PauseMenu
 
 
 pygame.init()
-pygame.display.set_caption("2D 體感釣魚大師 - 全螢幕模式")
+pygame.display.set_caption("2D 體感釣魚大師")
 
 main_cursor = Cursor(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
 Engine.static_object["Cursor"] = (0, main_cursor)

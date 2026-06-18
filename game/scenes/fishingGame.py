@@ -205,7 +205,7 @@ class FishingGame(BaseClass.GameObject):
     def start(self):
         self.enabled = True
         stars = [1, 2, 3, 4, 5]
-        weights = [1, 0, 0, 0, 0]
+        weights = [0.2, 0.3, 0.25, 0.2, 0.05]
         self.star = random.choices(stars, weights=weights)[0]
         self.difficulty()
     

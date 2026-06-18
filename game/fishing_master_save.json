@@ -4,51 +4,51 @@
         {
             "id": 1,
             "name": "塑膠袋",
-            "is_unlocked": true,
-            "max_weight": 0.01,
-            "catch_count": 17
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
         },
         {
             "id": 2,
             "name": "可樂罐",
-            "is_unlocked": true,
-            "max_weight": 0.05,
-            "catch_count": 10
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
         },
         {
             "id": 3,
             "name": "鞋子",
-            "is_unlocked": true,
-            "max_weight": 0.39,
-            "catch_count": 6
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
         },
         {
             "id": 4,
             "name": "指南針",
-            "is_unlocked": true,
-            "max_weight": 0.08,
-            "catch_count": 18
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
         },
         {
             "id": 5,
             "name": "生鏽鐵管",
-            "is_unlocked": true,
-            "max_weight": 2.84,
-            "catch_count": 11
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
         },
         {
             "id": 6,
             "name": "零食包裝袋",
-            "is_unlocked": true,
+            "is_unlocked": false,
             "max_weight": 0.0,
-            "catch_count": 11
+            "catch_count": 0
         },
         {
             "id": 7,
             "name": "輪胎",
-            "is_unlocked": true,
-            "max_weight": 7.78,
-            "catch_count": 16
+            "is_unlocked": false,
+            "max_weight": 0.0,
+            "catch_count": 0
         },
         {
             "id": 101,
@@ -109,9 +109,9 @@
         {
             "id": 109,
             "name": "紫色條紋魚",
-            "is_unlocked": false,
-            "max_weight": 0.0,
-            "catch_count": 0
+            "is_unlocked": true,
+            "max_weight": 0.07,
+            "catch_count": 1
         },
         {
             "id": 110,
@@ -263,7 +263,7 @@
         {
             "id": 301,
             "name": "數碼螢光雕",
-            "is_unlocked": true,
+            "is_unlocked": false,
             "max_weight": 0.0,
             "catch_count": 0
         },
